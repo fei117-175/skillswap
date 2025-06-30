@@ -34,7 +34,8 @@
                         暂无技能交换信息
                     </div>
                     <template v-else>
-                        <div v-for="exchange in filteredExchanges.filter(ex => ex.status === 'pending')" :key="exchange.id" class="exchange-card">
+                        <div v-for="exchange in filteredExchanges.filter(ex => ex.status === 'pending')"
+                            :key="exchange.id" class="exchange-card">
                             <div class="exchange-header">
                                 <div class="exchange-title">{{ exchange.title }}</div>
                                 <div class="exchange-status" :class="exchange.status">{{ exchange.statusText }}</div>
@@ -120,30 +121,27 @@ const activeSubcategory = ref('前端开发')
 const fetchExchanges = async () => {
     try {
         isLoading.value = true
-        const response = await fetch('/application/exchange/')
+        const response = await service.get('/application/exchange/')
 
-        if (!response.ok) throw new Error(`请求失败: ${response.status}`)
-        // console.log('从后端返回的数据：',response.data)
-        const data = await response.json()
-        // console.log('原始数据:', data.data) // 确认数据结构
-
-        // 直接映射数组（根据截图，data本身就是数组）
-        exchanges.value = data.data.map(item => ({
-            id: item.id, // 如果没有id则生成随机id
-            title: `${item.course} ↔ ${item.skill}`,
-            mySkill: item.course,
-            myCategory: item.course_category,
-            mySubcategory: item.course_subcategory,
-            targetSkill: item.skill || '未指定',
-            targetCategory: item.skill_category,
-            targetSubcategory: item.skill_subcategory,
-            owner: item.applicant_username,
-            description: item.description || '暂无描述',
-            time: item.start_time ? formatTimeRange(item.start_time, item.end_time) : '时间未设置',
-            status: item.apl_status || 'pending',
-            statusText: getStatusText(item.apl_status),
-            applicant_avatar: item.applicant_avatar,
-        }))
+        if (response.data.status === 'success') {
+            // 直接映射数组（根据截图，data本身就是数组）
+            exchanges.value = response.data.data.map(item => ({
+                id: item.id, // 如果没有id则生成随机id
+                title: `${item.course} ↔ ${item.skill}`,
+                mySkill: item.course,
+                myCategory: item.course_category,
+                mySubcategory: item.course_subcategory,
+                targetSkill: item.skill || '未指定',
+                targetCategory: item.skill_category,
+                targetSubcategory: item.skill_subcategory,
+                owner: item.applicant_username,
+                description: item.description || '暂无描述',
+                time: item.start_time ? formatTimeRange(item.start_time, item.end_time) : '时间未设置',
+                status: item.apl_status || 'pending',
+                statusText: getStatusText(item.apl_status),
+                applicant_avatar: item.applicant_avatar,
+            }))
+        }
     } catch (err) {
         console.error('获取数据失败:', err)
         error.value = err.message
@@ -216,15 +214,15 @@ const truncateDescription = (desc) => {
 }
 
 // 处理交换请求
-const handleExchange = async (exchangeId) => {  
+const handleExchange = async (exchangeId) => {
     console.log('处理交换请求:', exchangeId)
     const switchok = confirm('确定交换吗？')
     if (switchok) {
         try {
             // 直接调用并等待响应
             const response = await service.post(`/application/switch/${exchangeId}/`)
-            
-            if (response.message === 'success') { 
+
+            if (response.message === 'success') {
                 console.log('交换成功！')
                 alert('交换成功！')
             }

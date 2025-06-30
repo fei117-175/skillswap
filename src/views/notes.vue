@@ -135,7 +135,7 @@ async function loadBlogData() {
         // const newToken = await tokenManager.refreshToken();
         // console.log('新Token:', newToken);  
         // 获取博客数据
-        const blogResponse = await service.get('http://127.0.0.1:8000/blog/blogs/')
+        const blogResponse = await service.get('/blog/blogs/')
         console.log(blogResponse.data.blogs)
         posts.value = blogResponse.data.blogs.blog_list
         
@@ -232,7 +232,7 @@ function handleCardClick(post) {
 async function deletePost(postId) {
     if (confirm('确定要删除这篇博客吗？')) {
         try {
-            await service.delete(`http://127.0.0.1:8000/blog/delete/${postId}/`)
+            await service.delete(`/blog/delete/${postId}/`)
             posts.value = posts.value.filter(post => post.id !== postId)
         } catch (err) {
             console.error('删除失败:', err)

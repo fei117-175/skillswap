@@ -130,7 +130,7 @@ const currentMediaIndex = ref(0)
 // 获取博客详情
 const fetchBlogDetail = async () => {
   try {
-    const response = await service.get(`http://127.0.0.1:8000/blog/posts/${route.params.id}/`)
+    const response = await service.get(`/blog/posts/${route.params.id}/`)
     console.log('完整响应:', response)
     console.log('comments 数据:', response.data.data.comments)
     
@@ -169,7 +169,7 @@ const toggleLike = async () => {
     blog.is_liked = !blog.is_liked
     blog.likes_count += blog.is_liked_count ? 1 : -1
 
-    const res = await service.post(`http://127.0.0.1:8000/blog/toggle_like/${route.params.id}/`)
+    const res = await service.post(`/blog/toggle_like/${route.params.id}/`)
 
     if (res.data.status !== 'success') {
       // 如果请求失败，回滚UI状态
@@ -196,7 +196,7 @@ const toggleBookmark = async (postId) => {
     const wasBookmarked = blog.is_bookmarked
     blog.is_bookmarked = !wasBookmarked
 
-    const res = await service.post(`http://127.0.0.1:8000/blog/toggle_bookmark/${route.params.id}/`)
+    const res = await service.post(`/blog/toggle_bookmark/${route.params.id}/`)
 
     if (res.data.status !== 'success') {
       // 如果请求失败，回滚UI状态
@@ -222,7 +222,7 @@ const submitComment = async () => {
   if (!commentContent.value.trim()) return
 
   try {
-    const res = await service.post(`http://127.0.0.1:8000/blog/addcomment/${route.params.id}/`, {
+    const res = await service.post(`/blog/addcomment/${route.params.id}/`, {
       content: commentContent.value,
     })
     

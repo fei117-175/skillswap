@@ -382,7 +382,7 @@ const normalizeDate = (date) => {
 // 获取所有相关申请
 const fetchAllPlans = async () => {
   try {
-    const response = await service.get('http://127.0.0.1:8000/application/getuserplans/');
+    const response = await service.get('/application/getuserplans/');
     console.log(response.data.data)
     if (response.data.message === 'success') {
       allPlans.value = response.data.data.filter(allplan =>
@@ -512,7 +512,7 @@ const selectDate = async (day) => {
   const formattedDate = FormatDate(selectedDate);
 
   console.log('点击的日期是:', formattedDate);
-  const response = await service.get('http://127.0.0.1:8000/application/getmatched/', {
+  const response = await service.get('/application/getmatched/', {
     params: {
       date: formattedDate
     }
@@ -674,7 +674,7 @@ const handleRequest = async (requestId, action) => {
     console.log('请求参数:', payload);
 
     // 调用统一接口
-    const response = await service.post('http://127.0.0.1:8000/application/handle/', payload);
+    const response = await service.post('/application/handle/', payload);
 
     if (response.status !== 200) {
       throw new Error(response.data.message || '操作失败');
@@ -734,7 +734,7 @@ const submitRequest = async () => {
   formData.append('description', newRequest.value.description);
   console.log('表单数据:', formData);
   try {
-    const response = await service.post('http://127.0.0.1:8000/application/request/', formData);
+    const response = await service.post('/application/request/', formData);
     if (response.status === 201) {
       if (response.data.message === 'success') {
         console.log(response.data.applicant)
@@ -787,7 +787,7 @@ const filteredRequests = computed(() => {
 const successfulExchanges = ref([])
 const fetchSuccessfulExchanges = async () => {
   try {
-    const response = await service.get('http://127.0.0.1:8000/application/checkselfapl/')
+    const response = await service.get('/application/checkselfapl/')
     if (response.status === 200) {
       successfulExchanges.value = response.data.data
       console.log(response.data)
@@ -801,7 +801,7 @@ const fetchSuccessfulExchanges = async () => {
 // 修改后的历史请求获取方法
 const fetchHistoryRequests = async () => {
   try {
-    const response = await service.get('http://127.0.0.1:8000/application/history/');
+    const response = await service.get('/application/history/');
     if (response.status === 200) {
       // 只保留 canceled 和 completed 状态的请求
       historyRequests.value = response.data.data.filter(request =>
@@ -824,7 +824,7 @@ const recallRequest = (id) => {
 // 删除请求
 const deleteRequest = async (id) => {
   if (confirm('确定要删除这条记录吗?')) {
-    const response = await service.post(`http://127.0.0.1:8000/application/delete/${id}/`)
+    const response = await service.post(`/application/delete/${id}/`)
     if (response.data.status === 'success') {
       alert('删除成功')
     }

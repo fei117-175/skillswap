@@ -213,7 +213,7 @@ async function handleSave() {
         if (!token) throw new Error('Missing auth token');
 
         // 发送请求
-        const response = await service.post('http://127.0.0.1:8000/blog/save/', formData, {
+        const response = await service.post('/blog/save/', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

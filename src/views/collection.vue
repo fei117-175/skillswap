@@ -84,7 +84,7 @@ const categoryNames = {
 const fetchBookmarks = async () => {
   try {
     isLoading.value = true;
-    const res = await service.get('http://127.0.0.1:8000/blog/bookmarks/');
+    const res = await service.get('/blog/bookmarks/');
     if (res.data.status === 'success') {
       blogs.value = res.data.data.map(blog => ({
         ...blog,
@@ -102,7 +102,7 @@ const fetchBookmarks = async () => {
 // 切换收藏状态
 const toggleFavorite = async (id) => {
   try {
-    const res = await service.post(`http://127.0.0.1:8000/blog/toggle_bookmark/${id}/`);
+    const res = await service.post(`/blog/toggle_bookmark/${id}/`);
     if (res.data.status === 'success') {
       // 更新本地状态
       const index = blogs.value.findIndex(b => b.id === id);

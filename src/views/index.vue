@@ -205,7 +205,7 @@ const fetchSearchSuggestions = async () => {
   }
 
   try {
-    const res = await service.get('http://127.0.0.1:8000/search_suggestions/', {
+    const res = await service.get('/search_suggestions/', {
       params: { q: searchQuery.value }
     })
     searchSuggestions.value = res.data
@@ -274,7 +274,7 @@ const performSearch = async () => {
   }
   try {
     loading.value = true
-    const res = await service.get('http://127.0.0.1:8000/blog/search/', {
+    const res = await service.get('/blog/search/', {
       params: {
         q: searchQuery.value,
         tag: currentTab.value === 'all' ? null : currentTab.value
@@ -515,7 +515,7 @@ const likePost = async (post) => {
     Object.assign(post, updateData)
     updatePostState(post.id, updateData)
 
-    const res = await service.post(`http://127.0.0.1:8000/blog/toggle_like/${post.id}/`)
+    const res = await service.post(`/blog/toggle_like/${post.id}/`)
 
     if (res.data.status !== 'success' || res.data.is_liked !== !wasLiked) {
       updatePostState(post.id, {
@@ -546,7 +546,7 @@ const bookmarkPost = async (postId) => {
     Object.assign(post, updateData)
     updatePostState(postId, updateData)
 
-    const res = await service.post(`http://127.0.0.1:8000/blog/toggle_bookmark/${postId}/`)
+    const res = await service.post(`/blog/toggle_bookmark/${postId}/`)
     console.log(res.data)
     if (res.data.status !== 'success' || res.data.is_bookmarked !== !wasBookmarked) {
       updatePostState(postId, { isBookmarked: wasBookmarked })
@@ -584,7 +584,7 @@ const addComment = async (post) => {
   if (!post.newComment.trim()) return
 
   try {
-    const res = await service.post(`http://127.0.0.1:8000/blog/addcomment/${post.id}/`, {
+    const res = await service.post(`/blog/addcomment/${post.id}/`, {
       content: post.newComment,
     })
     if (res.data.message === 'success') {

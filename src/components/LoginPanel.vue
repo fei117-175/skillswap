@@ -96,10 +96,10 @@ export default {
             if (localStorage.getItem('access_token')) {
                 try {
                     // 验证现有Token是否有效
-                    await service.get('http://127.0.0.1:8000/api/verify/')
+                    await service.get('/api/verify/')
                     loginStatus.value = 1
                     // 获取用户数据
-                    const response = await service.get('http://127.0.0.1:8000/api/user/')
+                    const response = await service.get('/api/user/')
                     userData.value = response.data
                 } catch (error) {
                     tokenManager.clearTokens()
@@ -134,7 +134,7 @@ export default {
                 formData.append('username', userData.value.username);
 
                 const response = await service.post(
-                    'http://127.0.0.1:8000/avatar/',
+                    '/avatar/',
                     formData,
                     {
                         headers: {
@@ -156,7 +156,7 @@ export default {
 
         const handleLogin = async () => {
             try {
-                const response = await service.post('http://127.0.0.1:8000/login/', {
+                const response = await service.post('/login/', {
                     username: username.value,
                     password: password.value
                 })
@@ -186,7 +186,7 @@ export default {
 
         const handleLogout = async () => {
             try {
-                await service.post('http://127.0.0.1:8000/logout/')
+                await service.post('/logout/')
             } finally {
                 tokenManager.clearTokens()
                 user.loginUser = false

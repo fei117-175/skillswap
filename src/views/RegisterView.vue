@@ -214,7 +214,7 @@ const validateStep = (step) => {
 const submitForm = async () => {
     try {
         console.log('提交的数据:', formData.value)
-        const response = await axios.post('http://127.0.0.1:8000/register/',formData.value,
+        const response = await axios.post('/register/',formData.value,
             {
                 headers: {
                     'Content-Type': 'application/json'

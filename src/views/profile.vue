@@ -210,7 +210,7 @@ onMounted(async () => {
 const fetchUserData = async () => {
   try {
     // 这里应该是API调用
-    const response = await service.get(`http://127.0.0.1:8000/user/profile/${route.params.sk_id}`);
+    const response = await service.get(`/user/profile/${route.params.sk_id}`);
     if (response.data.status === 'success') {
       console.log('获取个人信息成功')
       console.log('data:', response.data.data)
@@ -250,7 +250,7 @@ const fetchUserData = async () => {
 const fetchLatestBlogs = async () => {
   try {
     // 这里应该是API调用
-    const response = await service.get(`http://127.0.0.1:8000/user/blogs/${route.params.sk_id}`);
+    const response = await service.get(`/user/blogs/${route.params.sk_id}`);
     if (response.data.status === 'success') {
       console.log('获取博客成功')
       blogs.value = response.data.data.blog_list;
@@ -303,7 +303,7 @@ const saveProfile = async () => {
         bio: userData.value.bio
       }
     };
-    const response = await service.post('http://127.0.0.1:8000/user/change_profile/', requestData)
+    const response = await service.post('/user/change_profile/', requestData)
     if (response.data.status === 'success') {
       // 更新原始数据
       originalData.value = { ...userData.value };
@@ -344,7 +344,7 @@ const changePassword = async () => {
     };
 
     // 使用统一的service进行API调用
-    const response = await service.put('http://127.0.0.1:8000/user/change_password/', requestData);
+    const response = await service.put('/user/change_password/', requestData);
     if (response.data.status === 'success') {
       alert('密码修改成功');
       resetPasswordForm();

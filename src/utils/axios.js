@@ -3,7 +3,7 @@ import router from '@/router';
 
 // 创建axios实例
 const service = axios.create({
-    baseURL: 'http://127.0.0.1:8000', // 使用 Vite 的环境变量
+    baseURL: 'http://127.0.0.1:8000', //后续配置服务器路由
     timeout: 10000
 });
 

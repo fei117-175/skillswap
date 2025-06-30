@@ -120,7 +120,7 @@ const activeSubcategory = ref('前端开发')
 const fetchExchanges = async () => {
     try {
         isLoading.value = true
-        const response = await fetch('http://127.0.0.1:8000/application/exchange/')
+        const response = await fetch('/application/exchange/')
 
         if (!response.ok) throw new Error(`请求失败: ${response.status}`)
         // console.log('从后端返回的数据：',response.data)
@@ -222,7 +222,7 @@ const handleExchange = async (exchangeId) => {
     if (switchok) {
         try {
             // 直接调用并等待响应
-            const response = await service.post(`http://127.0.0.1:8000/application/switch/${exchangeId}/`)
+            const response = await service.post(`/application/switch/${exchangeId}/`)
             
             if (response.message === 'success') { 
                 console.log('交换成功！')

@@ -324,6 +324,7 @@ const handleExchange = async (exchangeId) => {
     overflow-y: auto;
     padding-right: 0.5rem;
     flex: 1;
+    width: 93%;
 }
 
 /* 自定义滚动条 */

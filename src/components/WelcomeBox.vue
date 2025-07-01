@@ -21,49 +21,54 @@ const navigateToHome = () => {
 
 <style scoped>
 .welcome-box {
-  width: clamp(200px, 30vw, 400px);
-  /* 响应式宽度 */
+  width: clamp(280px, 80vw, 400px);
+  /* 增大最小宽度，更适合移动端 */
   aspect-ratio: 1/1;
-  /* 保持1:1正方形 */
+  /* 调整为1:1.2比例，给内容更多空间 */
   background: rgba(255, 255, 255, 0.492);
   border-radius: 12px;
   box-shadow: 0 6px 24px rgba(49, 212, 109, 0.434);
-  padding: 2rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
+  /* 使用space-around均匀分布空间 */
   align-items: center;
   text-align: center;
   position: relative;
+  margin: 0 auto;
+  /* 居中显示 */
 }
 
 .welcome-text {
   font-size: clamp(1rem, 3vw, 1.5rem);
-  line-height: 1.6;
-  margin-bottom: 2rem;
+  /* 增大vw比例，手机端更清晰 */
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+  /* 减小间距 */
   font-weight: bolder;
 }
 
 .brand {
   color: #42b983;
-  /* 与头部组件一致的品牌色 */
-  font-size: 1.5em;
-  /* 比正文大50% */
+  font-size: clamp(1.2rem, 5vw, 1.8rem);
+  /* 响应式品牌文字 */
   font-weight: bold;
   margin: 0 0.2em;
 }
 
 .enter-button {
   position: absolute;
-  bottom: 2rem;
-  right: 2rem;
+  bottom: 1.5rem;
+  right: 1.5rem;
   padding: 0.6rem 1.5rem;
   background-color: #42b983;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+  /* 响应式按钮文字 */
   transition: all 0.3s;
 }
 
@@ -73,25 +78,47 @@ const navigateToHome = () => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* 移动端适配 */
-@media (max-width: 768px) {
-  .welcome-box {
-    padding: 1.5rem;
-  }
+.imgbox {
+  width: 90%;
+  /* 稍微缩小图片宽度 */
+  height: 30%;
+  /* 调整图片高度比例 */
+  object-fit: contain;
+  /* 使用contain保持完整比例 */
+  border-radius: 8px;
+  /* 减小圆角 */
+  margin-bottom: 0.5rem;
+}
 
+/* 超小屏幕适配 (如iPhone 5/SE) */
+@media (max-width: 320px) {
+  .welcome-box {
+    width: 85vw;
+    aspect-ratio: 1/1.3;
+    padding: 1rem;
+  }
+  
+  .welcome-text {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+  
   .enter-button {
-    bottom: 1.5rem;
-    right: 1.5rem;
+    padding: 0.5rem 1.2rem;
+    bottom: 1rem;
+    right: 1rem;
   }
 }
 
-.imgbox {
-  width: 100%;
-  height: 40%;
-  /* 图片占组件高度的40% */
-  object-fit: cover;
-  /* 保持比例填充 */
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+/* 中等屏幕适配 */
+@media (min-width: 769px) {
+  .welcome-box {
+    padding: 2rem;
+  }
+  
+  .enter-button {
+    bottom: 2rem;
+    right: 2rem;
+  }
 }
 </style>

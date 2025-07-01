@@ -729,7 +729,9 @@ const formatDate = (dateString) => {
   top: 100%;
   left: 0;
   right: 0;
-  max-height: 400px;
+  max-height: 300px;
+  margin-left: 60%;
+  width: 40%;
   overflow-y: auto;
   background: white;
   border: 1px solid #ddd;
